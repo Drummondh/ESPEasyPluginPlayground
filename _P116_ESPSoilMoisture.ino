@@ -47,12 +47,12 @@ boolean Plugin_116(byte function, struct EventStruct *event, String& string)
     case PLUGIN_INIT:
       {
         Plugin_116_init = true;
-		pin_soil = 5;  //MOD
-        pinMode(pin_soil, OUTPUT); //Mod
+		pin_soil = 5;  
+        pinMode(pin_soil, OUTPUT); 
         
-        //digitalWrite(pin_soil, HIGH); //MOD
-		 // analogWriteFreq(40000);
-		 // analogWrite(5, 400); //MOD
+         	analogWrite(pin_soil, HIGH); //Test
+	 	analogWriteFreq(40000);  //Test
+	 	analogWrite(5, 400); //test
         success = true;
         break;
       }
@@ -60,29 +60,26 @@ boolean Plugin_116(byte function, struct EventStruct *event, String& string)
 
     case PLUGIN_READ:
       {
-        pin_soil = 5; //Mod
-       // noInterrupts(); //Mod
-       // byte x;  //mod
+        //pin_soil = 5; 
+
         int value;
         value = 0;
-       // for (x = 0; x < 25; x++)
+       // for (x = 0; x < 25; x++) //revise for average
         {
-		   analogWrite(pin_soil, HIGH); //Mod
-		  analogWriteFreq(40000);
-		  analogWrite(pin_soil, 400); //MOD
+		  //analogWrite(pin_soil, HIGH); 
+		  //analogWriteFreq(40000);
+		  //analogWrite(pin_soil, 400); 
           delayMicroseconds(500);
           value = analogRead(A0);
-         // delayMicroseconds(40);
-          //digitalWrite(pin_soil, HIGH); //Mod
-          // delayMicroseconds(9680); //MOD
+
         }
-        // interrupts();
+       
         UserVar[event->BaseVarIndex] = (float)value;
         String log = F("Soil Moisture value: ");
         log += value;
         addLog(LOG_LEVEL_INFO, log);
         success = true;
-		//analogWrite(pin_soil, LOW);
+		
         break;
       }
   }
